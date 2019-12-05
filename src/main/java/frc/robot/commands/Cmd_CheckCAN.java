@@ -42,6 +42,8 @@ public class Cmd_CheckCAN extends Command {
     boolean frontLeftCAN, frontRightCAN, midLeftCAN, midRightCAN, backLeftCAN, backRightCAN;
     String msg = "CAN_MSG_NOT_FOUND";
     StickyFaults fault = new StickyFaults();
+    Robot.s_drivetrain.driveFrontLeft.getStickyFaults(fault).toString();
+    
 
     String errorFrontLeft = Robot.s_drivetrain.getMotorTalon("driveFrontLeft").getStickyFaults(fault).toString();
     if (errorFrontLeft == msg) {

@@ -17,6 +17,7 @@ import frc.robot.commands.Cmd_AutoTurn;
 import frc.robot.commands.Cmd_CheckCAN;
 import frc.robot.subsystems.Sub_CANState;
 import frc.robot.subsystems.Sub_Drivetrain;
+import java.lang.reflect.Field;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -42,6 +43,16 @@ public class Robot extends TimedRobot {
     m_oi = new OI();
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+    Field[] fields = Sub_Drivetrain.class.getFields();
+    for (int i = 0; i < fields.length; i++) {
+      System.out.println(fields[i]);
+    }
+    /* returns stuff like:
+    public com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX
+    frc.robot.subsystems.Sub_Drivetrain.driveFrontRight
+    */
+
   }
 
   /**

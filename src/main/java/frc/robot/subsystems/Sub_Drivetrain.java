@@ -27,13 +27,13 @@ public class Sub_Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  WPI_TalonSRX driveFrontLeft = new WPI_TalonSRX(RobotMap.DRV_LEFT_FRONT);
-  WPI_TalonSRX driveFrontRight = new WPI_TalonSRX(RobotMap.DRV_RIGHT_FRONT);
+  public WPI_TalonSRX driveFrontLeft = new WPI_TalonSRX(RobotMap.DRV_LEFT_FRONT);
+  public WPI_TalonSRX driveFrontRight = new WPI_TalonSRX(RobotMap.DRV_RIGHT_FRONT);
 
-  WPI_VictorSPX driveMidLeft = new WPI_VictorSPX(RobotMap.DRV_LEFT_MID);
-  WPI_VictorSPX driveMidRight = new WPI_VictorSPX(RobotMap.DRV_RIGHT_MID);
-  WPI_VictorSPX driveBackLeft = new WPI_VictorSPX(RobotMap.DRV_LEFT_BACK);
-  WPI_VictorSPX driveBackRight = new WPI_VictorSPX(RobotMap.DRV_RIGHT_BACK);
+  public WPI_VictorSPX driveMidLeft = new WPI_VictorSPX(RobotMap.DRV_LEFT_MID);
+  public WPI_VictorSPX driveMidRight = new WPI_VictorSPX(RobotMap.DRV_RIGHT_MID);
+  public WPI_VictorSPX driveBackLeft = new WPI_VictorSPX(RobotMap.DRV_LEFT_BACK);
+  public WPI_VictorSPX driveBackRight = new WPI_VictorSPX(RobotMap.DRV_RIGHT_BACK);
 
   // CANSparkMax driveNeo = new CANSparkMax(RobotMap.DRV_NEO, MotorType.kBrushless);
 
