@@ -12,12 +12,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.commands.Cmd_CheckCAN;
 import edu.wpi.first.hal.can.CANStatus;
+
+import java.util.Vector;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.utilities.*;
 
 /**
  * Add your docs here.
  */
-public class Sub_CANState extends Subsystem {
+public class Sub_CANState extends Subsystem implements CAN_input {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -27,4 +31,10 @@ public class Sub_CANState extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new Cmd_CheckCAN());
   }
+@Override
+public Vector<CAN_devicefaults> input() {
+	Vector<CAN_devicefaults> masterCanDevices = new Vector<CAN_devicefaults>();
+  masterCanDevices.addAll(Robot.s_drivetrain.input());
+  return masterCanDevices;
+}
 }

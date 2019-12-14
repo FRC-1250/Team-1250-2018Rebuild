@@ -8,6 +8,9 @@
 package frc.robot.subsystems;
 
 
+import java.util.Vector;
+
+import com.ctre.phoenix.motorcontrol.StickyFaults;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.sensors.PigeonIMU;
@@ -17,13 +20,15 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.Cmd_ManualDrive;
+import frc.robot.utilities.*;
 
 /**
  * Add your docs here.
  */
-public class Sub_Drivetrain extends Subsystem {
+public class Sub_Drivetrain extends Subsystem implements CAN_input {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -154,4 +159,19 @@ public class Sub_Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     setDefaultCommand(new Cmd_ManualDrive());
   }
+
+  public int getMotorID() {
+    return driveMidLeft.getDeviceID();
+  }
+
+  @Override
+  public Vector<CAN_devicefaults> input() {
+  StickyFaults fault = new StickyFaults();
+  Vector<CAN_devicefaults> myCanDevices = new Vector<CAN_devicefaults>();
+  // myCanDevices.add(new CAN_devicefaults(CAN_DEVICE.getStickyFaults(fault).toString(), CAN_DEVICE.getDeviceID()));
+  myCanDevices.add(new CAN_devicefaults(driveFrontLeft.getStickyFaults(fault).toString(), driveFrontLeft.getDeviceID()));
+  myCanDevices.add(new CAN_devicefaults(driveMidLeft.getStickyFaults(fault).toString(), driveMidLeft.getDeviceID()));
+  return myCanDevices;
+}
+
 }

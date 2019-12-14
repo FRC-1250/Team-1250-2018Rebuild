@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import java.util.Vector;
+
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.StickyFaults;
@@ -18,6 +20,8 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.subsystems.Sub_Drivetrain;
+import frc.robot.utilities.CAN_devicefaults;
 
 public class Cmd_CheckCAN extends Command {
 
@@ -43,8 +47,17 @@ public class Cmd_CheckCAN extends Command {
     String msg = "CAN_MSG_NOT_FOUND";
     StickyFaults fault = new StickyFaults();
     Robot.s_drivetrain.driveFrontLeft.getStickyFaults(fault).toString();
+    Vector<CAN_devicefaults> can_devices = Robot.s_can.input();
     
-
+    for (int i = 0; i < can_devices.size(); i++) {
+      if (can_devices.get(i).stickyfault == msg) {
+        toSend[i] = 72;
+      } else {
+        toSend[i] = 76;
+      }
+      System.out.println("###################" + can_devices.get(i).stickyfault);
+    }
+    /*
     String errorFrontLeft = Robot.s_drivetrain.getMotorTalon("driveFrontLeft").getStickyFaults(fault).toString();
     if (errorFrontLeft == msg) {
       frontLeftCAN = false;
@@ -98,10 +111,11 @@ public class Cmd_CheckCAN extends Command {
       frontRightCAN = true;
       toSend[5] = 76;
     }
-
+    */
     // boolean errorNEO = Robot.s_drivetrain.getNEO("driveNEO").getStickyFault(NEOFault);
     //i2c.transaction(toSend, toSend.length, null, 0);
     i2c.writeBulk(toSend);
+    
 
   }
 
